@@ -10,7 +10,7 @@
 	<div id="page-wrap">
 		<h1>ChatFormat</h1>
 		<div id="validation"></div>
-		<form action="submit.php" method="post" onsubmit="return validateForm()" id="form">
+		<form action="api/submit.php" method="post" onsubmit="return validateForm()" id="form">
 			<textarea name="chat" placeholder="Paste your conversation here" id="text"></textarea>
 			<input type="submit" value="Format!">
 			<label>*Note: By clicking the button above, you agree to our <a href="https://chatformat.com/terms">Terms of Use</a> and <a href="https://chatformat.com/privacy">Privacy Policy</a>.</label>
