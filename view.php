@@ -6,7 +6,7 @@ if (isset($_GET['id'])) {
 	$id = $_GET['id'];
 }
 
-$mysqli = new mysqli("localhost", "root", "pmmcprojectmayhem" , "skype_format");
+$mysqli = new mysqli();
 if ($mysqli->connect_errno) {
 	echo "<div class='alert alert-danger'>Could not connect to database.</div>";
 }

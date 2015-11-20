@@ -5,7 +5,7 @@ include("hashids/HashGenerator.php");
 include("hashids/Hashids.php");
 
 if ($_POST['chat'] != null && $_POST['chat'] != "") {
-	$mysqli = new mysqli("localhost", "root", "pmmcprojectmayhem", "skype_format");
+	$mysqli = new mysqli();
 	if ($mysqli->connect_errno) {
 			echo '{
 		  			"response": {
