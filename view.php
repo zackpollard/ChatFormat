@@ -6,11 +6,18 @@ if (isset($_GET['id'])) {
 	$id = $_GET['id'];
 }
 
-$mysqli = new mysqli();//
-if ($mysqli->connect_errno) {
+echo($id);
+
+$config = parse_ini_file('./config/config.ini');
+$connection = mysqli_connect($config['host'], $config['username'], $config['password'], $config['dbname'], $config['port']);
+
+if ($connection->connect_errno) {
 	echo "<div class='alert alert-danger'>Could not connect to database.</div>";
 }
-$stmt = $mysqli->prepare("SELECT log FROM logs WHERE strid=?");
+
+$tablename = $config['tablename'];
+
+$stmt = $connection->prepare("SELECT log FROM $tablename WHERE strid=?");
 
 $stmt->bind_param('s', $id);
 $stmt->execute();
