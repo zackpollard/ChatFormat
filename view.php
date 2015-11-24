@@ -27,7 +27,6 @@ $stmt->bind_result($returned_log);
 
 $stmt->fetch();
 
-$chat = htmlspecialchars($returned_log, ENT_COMPAT|ENT_SUBSTITUTE, "UTF-8");
 $chat = preg_replace($linkRegex, '<a href="$1" target="_blank">$1</a>', $chat);
 ?>
 <!DOCTYPE html>
