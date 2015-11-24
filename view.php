@@ -1,12 +1,9 @@
 <?php
-$chatRegex = '/\[(?:(?!\n\[).)*/s';
 $linkRegex = '@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@';
 
 if (isset($_GET['id'])) {
 	$id = $_GET['id'];
 }
-
-echo($id);
 
 $config = parse_ini_file('./config/config.ini');
 $connection = mysqli_connect($config['host'], $config['username'], $config['password'], $config['dbname'], $config['port']);
@@ -23,12 +20,12 @@ $stmt->bind_param('s', $id);
 $stmt->execute();
 
 $stmt->store_result();
-$stmt->bind_result($returned_log);
+$stmt->bind_result($returned_json);
 
 $stmt->fetch();
 
-$chat = htmlspecialchars($returned_log, ENT_COMPAT|ENT_SUBSTITUTE, "UTF-8");
-$chat = preg_replace($linkRegex, '<a href="$1" target="_blank">$1</a>', $chat);
+$returned_log = json_decode($returned_json, true);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -54,31 +51,29 @@ $chat = preg_replace($linkRegex, '<a href="$1" target="_blank">$1</a>', $chat);
 
 		<div class="chat-section">
 			<?php
-			if ($returned_log != null && $returned_log != "") {
-				$firstauthor = null;
-				preg_match_all("/\[(?:(?!\n\[).)*/s", $chat, $matches);
-				foreach($matches as $array){
-					foreach ($array as $match) {
-						preg_match("@\[([^]]*)] ([^]]*): (.*)@s", $match, $s);
-						$time = $s[1];
-						$author = $s[2];
-						$message = $s[3];
+			if ($returned_log != null) {
 
-						if (!isset($firstauthor)) {
-							$firstauthor = $author;
-						}
+                $firstauthor = null;
+				foreach($returned_log['messages'] as $message){
+					$time = $message['time'];
+					$author = $message['author'];
+					$message = $message['message'];
+					$message = preg_replace($linkRegex, '<a href="$1" target="_blank">$1</a>', $message);
 
-						echo '<div class="info">';
-						echo '<span class="author">' . $author . '</span>';
-						echo ' - ';
-						echo '<span class="time">' . $time . '</span>';
-						echo '</div>';
-						if ($author == $firstauthor) {
-							echo '<div class="message first">' . $message . '</div>';
-						}
-						else {
-							echo '<div class="message">' . $message . '</div>';
-						}
+					if (!isset($firstauthor)) {
+						$firstauthor = $author;
+					}
+
+					echo '<div class="info">';
+					echo '<span class="author">' . $author . '</span>';
+					echo ' - ';
+					echo '<span class="time">' . $time . '</span>';
+					echo '</div>';
+					if ($author == $firstauthor) {
+						echo '<div class="message first">' . $message . '</div>';
+					}
+					else {
+						echo '<div class="message">' . $message . '</div>';
 					}
 				}
 			}
