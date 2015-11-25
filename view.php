@@ -44,7 +44,6 @@ $returned_log = json_decode($returned_json, true);
 	</style>
 </head>
 <body>
-	<?php include_once("assets/analytics.php") ?>
 	<div id="page-wrap">
 		<h1><a href="https://chatformat.com">ChatFormat</a></h1>
 		<div class="links"><a id="copy-button">Copy Link</a></div>
@@ -83,7 +82,6 @@ $returned_log = json_decode($returned_json, true);
 			?>
 		</div>
 
-		<?php include_once("assets/footer.php"); ?>
 		<?php 
 			if ($returned_log != null && $returned_log != "") {
 				echo "<div><a href='https://chatformat.com/takedown'>Request Removal</a></div>";

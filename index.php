@@ -6,7 +6,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-	<?php include_once("assets/analytics.php") ?>
 	<div id="page-wrap">
 		<h1>ChatFormat</h1>
 		<div id="validation"></div>
@@ -15,7 +14,6 @@
 			<input type="submit" value="Format!">
 			<label>*Note: By clicking the button above, you agree to our <a href="https://chatformat.com/terms">Terms of Use</a> and <a href="https://chatformat.com/privacy">Privacy Policy</a>.</label>
 		</form>
-		<?php include_once("assets/footer.php"); ?>
 	</div>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript">
